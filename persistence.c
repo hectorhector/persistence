@@ -8,6 +8,8 @@
 
 #define NUM_DIGITS 1024
 
+//https://www.youtube.com/watch?v=Wim9WJeDTHQ
+
 void mpz_mper(mpz_t num);
 
 bool inc_mper(char *num);
@@ -42,12 +44,12 @@ int main(void)
             ++count;
         }
 
-        if(count > best_count)
+        if(count >= best_count)
         {
             clock_t found = clock();
             double time_spent = (double)(found - start) / CLOCKS_PER_SEC;
             best_count = count;
-            printf("(%f)\t%lu steps: %s  <------\n", time_spent, count, guess);
+            printf("(%f)\t%s has persistence of %lu\n", time_spent, guess, count);
         }
 
         if (count > digit_best_count)
@@ -104,7 +106,7 @@ bool inc_mper(char *num)
         double time_spent = (double)(found - start) / CLOCKS_PER_SEC;
         //printf("(%f)\t%lu digits best: %u\n", time_spent, i+1, best_count);
         
-        gmp_printf("(%f) finished %lu digits. %Zd nums with count: %lu\n", time_spent, i, digit_count, digit_best_count); 
+        gmp_printf("(%f) checked all numbers with %lu digits. %Zd numbers had a persistence of %lu\n", time_spent, i, digit_count, digit_best_count); 
         mpz_set_ui(digit_count, 0);
         digit_best_count = 0;
 
